@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+ name: user
+ labels:
+  app: user
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   app: userservice
+ template:
+  metadata:
+   labels:
+    app: userservice
+  spec:
+   containers:
+    - name: user
+      image: girishsuri/user:3
+      env: 
+      - name: userfile
+        value: /mnt/user.json
+      ports:
+        - containerPort: 3000
+      volumeMounts:
+        - name: user
+          mountPath: /mnt
+   volumes:
+   - name: user
+     configMap:
+      name: userdata

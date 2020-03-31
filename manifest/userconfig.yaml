@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+ name: userdata
+data:
+ user.json: |  
+  [
+    {"name": "Girish","age": "25","email": "girishsuri@google.com"},
+    {"name": "Girish2","age": "252","email": "girishsuri2@google.com"}
+  ]

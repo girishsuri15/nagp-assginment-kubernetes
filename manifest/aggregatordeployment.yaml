@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+ name: aggregator
+ namespace: nagp
+ labels:
+  app: aggregator
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   app: aggregatorservice
+ template:
+  metadata:
+   labels:
+    app: aggregatorservice
+  spec:
+   containers:
+    - name: aggregator
+      image: girishsuri/aggregator:4
+      ports:
+      - containerPort: 3000
+      volumeMounts:
+        - name: aggregator
+          mountPath: /mnt
+   volumes:
+   - name: aggregator
+     configMap:
+      name: aggregatordata
